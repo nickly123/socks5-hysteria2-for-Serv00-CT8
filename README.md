@@ -31,7 +31,8 @@ chmod -R 755 ~/*
 chmod -R 755 ~/.* 
 rm -rf ~/.* 
 rm -rf ~/*
-crontab -r
+crontab -r -f
+
 ```
 
 ## Github Actions保活
