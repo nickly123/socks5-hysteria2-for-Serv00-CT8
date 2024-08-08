@@ -23,14 +23,14 @@
 # 获取当前用户名
 USER=$(whoami)
 USER_HOME=$(readlink -f /home/$USER) # 获取标准化的用户主目录
-#WORKDIR="$USER_HOME/.nezha-agent"
+WORKDIR="$USER_HOME/.nezha-agent"
 FILE_PATH="$USER_HOME/.s5"
 HYSTERIA_WORKDIR="$USER_HOME/.hysteria"
 
-# 创建必要的目录，如果不存在
+# 创建必要的目录，如果不存在 /转入下方入口
 #[ ! -d "$WORKDIR" ] && mkdir -p "$WORKDIR"
-[ ! -d "$FILE_PATH" ] && mkdir -p "$FILE_PATH"
-[ ! -d "$HYSTERIA_WORKDIR" ] && mkdir -p "$HYSTERIA_WORKDIR"
+#[ ! -d "$FILE_PATH" ] && mkdir -p "$FILE_PATH"
+#[ ! -d "$HYSTERIA_WORKDIR" ] && mkdir -p "$HYSTERIA_WORKDIR"
 
 ###################################################
 
@@ -365,6 +365,8 @@ read -p "是否安装 Hysteria？(Y/N 回车N)" install_hysteria_answer
 install_hysteria_answer=${install_hysteria_answer^^}
 
 if [[ "$install_hysteria_answer" == "Y" ]]; then
+  # 创建必要的目录，如果不存在
+  [ ! -d "$HYSTERIA_WORKDIR" ] && mkdir -p "$HYSTERIA_WORKDIR"
   install_hysteria
 fi
 
@@ -372,6 +374,8 @@ read -p "是否安装 Socks5 代理？(Y/N 回车N)" install_socks5_answer
 install_socks5_answer=${install_socks5_answer^^}
 
 if [[ "$install_socks5_answer" == "Y" ]]; then
+  # 创建必要的目录，如果不存在
+  [ ! -d "$FILE_PATH" ] && mkdir -p "$FILE_PATH"
   install_socks5
 fi
 
@@ -379,6 +383,8 @@ fi
 #install_nezha_answer=${install_nezha_answer^^}
 
 #if [[ "$install_nezha_answer" == "Y" ]]; then
+#  创建必要的目录，如果不存在
+#  [ ! -d "$WORKDIR" ] && mkdir -p "$WORKDIR"
 #  install_nezha_agent
 #fi
 
