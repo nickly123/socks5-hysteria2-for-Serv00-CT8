@@ -351,21 +351,21 @@ install_nezha_agent(){
 
 # 添加 crontab 守护进程任务
 add_crontab_task() {
-  crontab -l > /tmp/crontab.bak
+  crontab -l > ~/crontab.bak
   # 如果安装socks5
   if [[ "$install_socks5_answer" == "Y" ]]; then
-    echo "*/20 * * * * if ! pgrep -x s5; then nohup ${FILE_PATH}/s5 -c ${FILE_PATH}/config.json >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
+    echo "*/20 * * * * if ! pgrep -x s5; then nohup ${FILE_PATH}/s5 -c ${FILE_PATH}/config.json >/dev/null 2>&1 & fi" >> ~/crontab.bak
   fi
   # 如果安装Hysteria2
   if [[ "$install_hysteria_answer" == "Y" ]]; then
-    echo "*/20 * * * * if ! pgrep -x web; then nohup $HYSTERIA_WORKDIR/web server $HYSTERIA_WORKDIR/config.yaml >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
+    echo "*/20 * * * * if ! pgrep -x web; then nohup $HYSTERIA_WORKDIR/web server $HYSTERIA_WORKDIR/config.yaml >/dev/null 2>&1 & fi" >> ~/crontab.bak
   fi
   # 如果安装nezha
   #if [[ "$install_nezha_answer" == "Y" ]]; then
-    #echo "*/20 * * * * if ! pgrep -f nezha-agent; then nohup $WORKDIR/start.sh >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
+    #echo "*/20 * * * * if ! pgrep -f nezha-agent; then nohup $WORKDIR/start.sh >/dev/null 2>&1 & fi" >> ~/crontab.bak
   #fi
-  crontab /tmp/crontab.bak
-  rm /tmp/crontab.bak
+  crontab ~/crontab.bak
+  rm ~/crontab.bak
   echo -e "\e[1;32mCrontab 任务添加完成\e[0m"
 }
 
