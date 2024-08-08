@@ -23,12 +23,12 @@
 # 获取当前用户名
 USER=$(whoami)
 USER_HOME=$(readlink -f /home/$USER) # 获取标准化的用户主目录
-WORKDIR="$USER_HOME/.nezha-agent"
+#WORKDIR="$USER_HOME/.nezha-agent"
 FILE_PATH="$USER_HOME/.s5"
 HYSTERIA_WORKDIR="$USER_HOME/.hysteria"
 
 # 创建必要的目录，如果不存在
-[ ! -d "$WORKDIR" ] && mkdir -p "$WORKDIR"
+#[ ! -d "$WORKDIR" ] && mkdir -p "$WORKDIR"
 [ ! -d "$FILE_PATH" ] && mkdir -p "$FILE_PATH"
 [ ! -d "$HYSTERIA_WORKDIR" ] && mkdir -p "$HYSTERIA_WORKDIR"
 
@@ -352,9 +352,9 @@ install_nezha_agent(){
 # 添加 crontab 守护进程任务
 add_crontab_task() {
   crontab -l > /tmp/crontab.bak
-  echo "*/1 * * * * if ! pgrep -f nezha-agent; then nohup $WORKDIR/start.sh >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
-  echo "*/1 * * * * if ! pgrep -x s5; then nohup ${FILE_PATH}/s5 -c ${FILE_PATH}/config.json >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
-  echo "*/1 * * * * if ! pgrep -x web; then nohup $HYSTERIA_WORKDIR/web server $HYSTERIA_WORKDIR/config.yaml >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
+  #echo "*/20 * * * * if ! pgrep -f nezha-agent; then nohup $WORKDIR/start.sh >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
+  echo "*/20 * * * * if ! pgrep -x s5; then nohup ${FILE_PATH}/s5 -c ${FILE_PATH}/config.json >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
+  echo "*/20 * * * * if ! pgrep -x web; then nohup $HYSTERIA_WORKDIR/web server $HYSTERIA_WORKDIR/config.yaml >/dev/null 2>&1 & fi" >> /tmp/crontab.bak
   crontab /tmp/crontab.bak
   rm /tmp/crontab.bak
   echo -e "\e[1;32mCrontab 任务添加完成\e[0m"
@@ -375,12 +375,12 @@ if [[ "$install_socks5_answer" == "Y" ]]; then
   install_socks5
 fi
 
-read -p "是否安装 Nezha Agent？(Y/N 回车N)" install_nezha_answer
-install_nezha_answer=${install_nezha_answer^^}
+#read -p "是否安装 Nezha Agent？(Y/N 回车N)" install_nezha_answer
+#install_nezha_answer=${install_nezha_answer^^}
 
-if [[ "$install_nezha_answer" == "Y" ]]; then
-  install_nezha_agent
-fi
+#if [[ "$install_nezha_answer" == "Y" ]]; then
+#  install_nezha_agent
+#fi
 
 read -p "是否添加 crontab 任务来守护进程？(Y/N 回车N)" add_crontab_answer
 add_crontab_answer=${add_crontab_answer^^}
