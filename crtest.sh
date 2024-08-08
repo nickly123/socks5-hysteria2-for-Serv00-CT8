@@ -11,7 +11,7 @@ CRON_S5="nohup ${FILE_PATH}/s5 -c ${FILE_PATH}/config.json >/dev/null 2>&1 &"
 CRON_NEZHA="nohup ${WORKDIR}/start.sh >/dev/null 2>&1 &"
 CRON_HYSTERIA="nohup ${HYSTERIA_WORKDIR}/web -c $HYSTERIA_CONFIG >/dev/null 2>&1 &"  # Hysteria 启动命令
 PM2_PATH="${USER_HOME}/.npm-global/lib/node_modules/pm2/bin/pm2"
-CRON_JOB="*/12 * * * * $PM2_PATH resurrect >> ${USER_HOME}/pm2_resurrect.log 2>&1"
+CRON_JOB="*/20 * * * * $PM2_PATH resurrect >> ${USER_HOME}/pm2_resurrect.log 2>&1"
 REBOOT_COMMAND="@reboot pkill -kill -u $USER && $PM2_PATH resurrect >> ${USER_HOME}/pm2_resurrect.log 2>&1"
 
 echo "检查并添加 crontab 任务"
